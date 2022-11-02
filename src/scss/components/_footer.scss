@@ -1,0 +1,21 @@
+.footer {
+    flex-shrink: 0;
+    padding: 15px;
+    background-color: black;
+
+    ul {
+        display: flex;
+
+        li {
+            list-style-type: none;
+        }
+    }
+
+    span {
+        color: #fff;
+
+        a {
+            color: $red;
+        }
+    }
+}
