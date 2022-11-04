@@ -7,6 +7,8 @@ import Sort from "./components/Sort"
 import SushiBlock from "./components/SushiBlock";
 import Footer from "./components/Footer";
 
+import data from './assets/data.json';
+
 function App() {
   return (
     <div className="wrapper">
@@ -19,7 +21,9 @@ function App() {
           </div>
           <h2 className="content__title">Все роллы</h2>
           <div className="content__items">
-            <SushiBlock title='Филадельфия' price='350' />
+            {data.map(obj => (
+              <SushiBlock title={obj.title} price={obj.price} imgUrl={obj.imageUrl} quantity={obj.quantity} />
+            ))}
           </div>
         </div>
       </div>

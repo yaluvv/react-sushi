@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-const SushiBlock = ({ title, price }) => {
+const SushiBlock = ({ title, price, imgUrl, quantity }) => {
   const [sushiCount, setSushiCount] = useState(0);
+  const [sushiQuantityActive, setSushiQuantityActive] = useState(0);
 
   const addItem = () => {
     setSushiCount(sushiCount + 1);
@@ -9,20 +10,24 @@ const SushiBlock = ({ title, price }) => {
 
   return (
     <div className="sushi-block">
-      <img
-        className="sushi-block__image"
-        src="https://www.yaponamatrena.ru/upload/iblock/53a/53a1c892dad45f143b67076b344f580a.jpg"
-        alt="sushi"
-      />
+      <img className="sushi-block__image" src={imgUrl} alt="sushi" />
       <h4 className="sushi-block__title">{title}</h4>
       <div className="sushi-block__selector">
         <ul>
-          <li className="active">4 шт.</li>
-          <li>8 шт.</li>
+          {quantity.map((item, i) => (
+            <li
+              onClick={() => setSushiQuantityActive(i)}
+              className={sushiQuantityActive === i ? "active" : ""}
+            >
+              {item} шт
+            </li>
+          ))}
         </ul>
       </div>
       <div className="sushi-block__bottom">
-        <div className="sushi-block__price">от {price} ₽</div>
+        <div className="sushi-block__price">
+          {quantity.length === 1 ? price : "от " + price} ₽
+        </div>
         <button
           className="button button--outline button--add"
           onClick={addItem}
