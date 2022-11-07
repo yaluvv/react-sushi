@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
-const SushiBlock = ({ title, price, imgUrl, quantity }) => {
-  const [sushiCount, setSushiCount] = useState(0);
-  const [sushiQuantityActive, setSushiQuantityActive] = useState(0);
+const SushiBlock = ({ title, price, imageUrl, quantity }) => {
+  const [sushiCount, setSushiCount] = React.useState(0);
+  const [sushiQuantityActive, setSushiQuantityActive] = React.useState(0);
 
   const addItem = () => {
     setSushiCount(sushiCount + 1);
@@ -10,12 +10,13 @@ const SushiBlock = ({ title, price, imgUrl, quantity }) => {
 
   return (
     <div className="sushi-block">
-      <img className="sushi-block__image" src={imgUrl} alt="sushi" />
+      <img className="sushi-block__image" src={imageUrl} alt="sushi" />
       <h4 className="sushi-block__title">{title}</h4>
       <div className="sushi-block__selector">
         <ul>
           {quantity.map((item, i) => (
             <li
+              key={item}
               onClick={() => setSushiQuantityActive(i)}
               className={sushiQuantityActive === i ? "active" : ""}
             >
