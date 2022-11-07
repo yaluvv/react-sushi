@@ -22,7 +22,7 @@ function App() {
           <h2 className="content__title">Все роллы</h2>
           <div className="content__items">
             {data.map(obj => (
-              <SushiBlock title={obj.title} price={obj.price} imgUrl={obj.imageUrl} quantity={obj.quantity} />
+              <SushiBlock key={obj.id} {...obj} />
             ))}
           </div>
         </div>
