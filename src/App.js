@@ -6,15 +6,20 @@ import Categories from "./components/Categories"
 import Sort from "./components/Sort"
 import SushiBlock from "./components/SushiBlock";
 import Footer from "./components/Footer";
+import Skeleton from "./components/Skeleton";
 
 function App() {
 
   const [items, setItems] = React.useState([])
+  const [isLoading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     fetch('https://636d44ee91576e19e324845f.mockapi.io/items')
       .then(res => res.json())
-      .then(json => setItems(json))
+      .then(json => {
+        setItems(json)
+        setLoading(false)
+      })
   }, []);
 
   return (
@@ -28,9 +33,9 @@ function App() {
           </div>
           <h2 className="content__title">Все роллы</h2>
           <div className="content__items">
-            {items.map(obj => (
-              <SushiBlock key={obj.id} {...obj} />
-            ))}
+            {
+              isLoading ? [...new Array(3)].map((_, index) => <Skeleton key={index} />) : items.map(obj => <SushiBlock key={obj.id} {...obj} />)
+            }
           </div>
         </div>
       </div>
