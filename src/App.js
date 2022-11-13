@@ -1,43 +1,24 @@
 import React from "react";
 
-import './scss/app.scss'
 import Header from './components/Header'
-import Categories from "./components/Categories"
-import Sort from "./components/Sort"
-import SushiBlock from "./components/SushiBlock";
+import Home from './pages/Home'
+import Cart from "./pages/Cart";
+import PageNotFound from "./pages/PageNotFound";
 import Footer from "./components/Footer";
-import Skeleton from "./components/Skeleton";
 
-function App() {
+import './scss/app.scss'
+import { Route, Routes } from "react-router-dom";
 
-  const [items, setItems] = React.useState([])
-  const [isLoading, setLoading] = React.useState(true)
-
-  React.useEffect(() => {
-    fetch('https://636d44ee91576e19e324845f.mockapi.io/items')
-      .then(res => res.json())
-      .then(json => {
-        setItems(json)
-        setLoading(false)
-      })
-  }, []);
-
+const App = () => {
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
-        <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">Все роллы</h2>
-          <div className="content__items">
-            {
-              isLoading ? [...new Array(3)].map((_, index) => <Skeleton key={index} />) : items.map(obj => <SushiBlock key={obj.id} {...obj} />)
-            }
-          </div>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
       </div>
       <Footer />
     </div >
