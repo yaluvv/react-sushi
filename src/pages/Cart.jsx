@@ -85,7 +85,7 @@ const Cart = () => {
             <div className="cart__item-img">
               <img
                 className="sushi-block__image"
-                src="https://dodosushi-a.akamaihd.net/static/Img/Products/sushi/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+                src="https://www.yaponamatrena.ru/upload/iblock/53a/53a1c892dad45f143b67076b344f580a.jpg"
                 alt="sushi"
               />
             </div>
@@ -160,7 +160,7 @@ const Cart = () => {
             <div className="cart__item-img">
               <img
                 className="sushi-block__image"
-                src="https://dodosushi-a.akamaihd.net/static/Img/Products/sushi/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+                src="https://www.yaponamatrena.ru/upload/iblock/614/614e441f0d611c503535a1788fbc9986.jpg"
                 alt="sushi"
               />
             </div>
@@ -235,12 +235,12 @@ const Cart = () => {
             <div className="cart__item-img">
               <img
                 className="sushi-block__image"
-                src="https://dodosushi-a.akamaihd.net/static/Img/Products/sushi/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+                src="https://mamamia-pizza.ru/upload/iblock/76f/76f309b0e51c85b5e8fef0fee076b1da.jpg"
                 alt="sushi"
               />
             </div>
             <div className="cart__item-info">
-              <h3>Калифорния</h3>
+              <h3>Яки лосось</h3>
               <p>8 шт.</p>
             </div>
             <div className="cart__item-count">
