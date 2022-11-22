@@ -1,4 +1,5 @@
 import React from "react";
+import debounce from "lodash.debounce";
 
 import styles from "./Search.module.scss";
 import searchIcon from "./search.svg";
@@ -7,20 +8,41 @@ import { SearchContext } from "../../App";
 
 const Search = () => {
   const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const [value, setValue] = React.useState("");
+  const inputRef = React.useRef();
+
+  const onClickClear = () => {
+    setSearchValue("");
+    setValue("");
+    inputRef.current.focus();
+  };
+
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 1000),
+    []
+  );
+
+  const onChangeInput = (event) => {
+    setValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
 
   return (
     <div className={styles.root}>
       <img className={styles.search} src={searchIcon} alt="search icon" />
       <input
-        value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+        ref={inputRef}
+        value={value}
+        onChange={onChangeInput}
         className={styles.input}
         type="text"
         placeholder="Введите название роллов"
       />
-      {searchValue && (
+      {value && (
         <img
-          onClick={() => setSearchValue("")}
+          onClick={onClickClear}
           className={styles.close}
           src={closeIcon}
           alt="close icon"
