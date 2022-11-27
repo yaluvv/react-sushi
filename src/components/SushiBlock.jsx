@@ -1,11 +1,26 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addProduct } from "../redux/slices/cartSlice";
 
-const SushiBlock = ({ title, price, imageUrl, quantity }) => {
-  const [sushiCount, setSushiCount] = React.useState(0);
+const SushiBlock = ({ id, title, price, imageUrl, quantity }) => {
   const [sushiQuantityActive, setSushiQuantityActive] = React.useState(0);
+  const cartItem = useSelector((state) =>
+    state.cart.products.find((obj) => obj.id === id)
+  );
+  const dispatch = useDispatch();
+
+  const addedCount = cartItem ? cartItem.count : 0;
 
   const addItem = () => {
-    setSushiCount(sushiCount + 1);
+    const item = {
+      id,
+      title,
+      price: price[sushiQuantityActive],
+      imageUrl,
+      quantity: quantity[sushiQuantityActive],
+    };
+    console.log(item);
+    dispatch(addProduct(item));
   };
 
   return (
@@ -26,9 +41,7 @@ const SushiBlock = ({ title, price, imageUrl, quantity }) => {
         </ul>
       </div>
       <div className="sushi-block__bottom">
-        <div className="sushi-block__price">
-          {quantity.length === 1 ? price : "от " + price} ₽
-        </div>
+        <div className="sushi-block__price">{price[sushiQuantityActive]} ₽</div>
         <button
           className="button button--outline button--add"
           onClick={addItem}
@@ -46,7 +59,7 @@ const SushiBlock = ({ title, price, imageUrl, quantity }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>{sushiCount}</i>
+          {addedCount > 0 && <i>{addedCount}</i>}
         </button>
       </div>
     </div>
