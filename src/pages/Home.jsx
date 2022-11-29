@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+
 import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId } from "../redux/slices/filterSlice";
 
@@ -8,37 +8,38 @@ import Sort from "../components/Sort";
 import SushiBlock from "../components/SushiBlock";
 import Skeleton from "../components/Skeleton";
 import { SearchContext } from "../App";
+import { setItems, fetchSushi } from "../redux/slices/sushiSlice";
+import { ErrorSushi } from "../components/ErrorSushi";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { categoryId, sort } = useSelector((state) => state.filter);
+  const { items, status } = useSelector((state) => state.sushi);
   const sortType = sort.sort;
 
   const { searchValue } = React.useContext(SearchContext);
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setLoading] = React.useState(true);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
   };
-
-  React.useEffect(() => {
-    setLoading(true);
-
+  const getSushi = async () => {
     const order = sortType.includes("-") ? "desc" : "asc";
     const sortBy = sortType.replace("-", "");
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    axios
-      .get(
-        `https://636d44ee91576e19e324845f.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setLoading(false);
-      });
+    dispatch(
+      fetchSushi({
+        order,
+        sortBy,
+        category,
+        search,
+      })
+    );
     window.scrollTo(0, 0);
+  };
+  React.useEffect(() => {
+    getSushi();
   }, [categoryId, sortType, searchValue]);
 
   return (
@@ -49,11 +50,15 @@ const Home = () => {
           <Sort />
         </div>
         <h2 className="content__title">Все роллы</h2>
-        <div className="content__items">
-          {isLoading
-            ? [...new Array(3)].map((_, index) => <Skeleton key={index} />)
-            : items.map((obj) => <SushiBlock key={obj.id} {...obj} />)}
-        </div>
+        {status === "error" ? (
+          <ErrorSushi />
+        ) : (
+          <div className="content__items">
+            {status === "loading"
+              ? [...new Array(3)].map((_, index) => <Skeleton key={index} />)
+              : items.map((obj) => <SushiBlock key={obj.id} {...obj} />)}
+          </div>
+        )}
       </div>
     </div>
   );
