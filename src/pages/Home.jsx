@@ -7,17 +7,16 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import SushiBlock from "../components/SushiBlock";
 import Skeleton from "../components/Skeleton";
-import { SearchContext } from "../App";
-import { setItems, fetchSushi } from "../redux/slices/sushiSlice";
+import { fetchSushi } from "../redux/slices/sushiSlice";
 import { ErrorSushi } from "../components/ErrorSushi";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { categoryId, sort } = useSelector((state) => state.filter);
+  const { categoryId, sort, searchValue } = useSelector(
+    (state) => state.filter
+  );
   const { items, status } = useSelector((state) => state.sushi);
   const sortType = sort.sort;
-
-  const { searchValue } = React.useContext(SearchContext);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
