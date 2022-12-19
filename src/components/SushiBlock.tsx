@@ -1,23 +1,28 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addProduct } from "../redux/slices/cartSlice";
+import { addProduct, CartItem } from "../redux/slices/cartSlice";
 
-const SushiBlock = ({ id, title, price, imageUrl, quantity }) => {
+type SushiBlockType = {
+  id: string; title: string; price:number[]; imageUrl:string; quantity:number[];
+}
+
+const SushiBlock: React.FC<SushiBlockType> = ({ id, title, price, imageUrl, quantity }) => {
   const [sushiQuantityActive, setSushiQuantityActive] = React.useState(0);
-  const cartItem = useSelector((state) =>
-    state.cart.products.find((obj) => obj.id === id)
+  const cartItem = useSelector((state: any) =>
+    state.cart.products.find((obj: any) => obj.id === id)
   );
   const dispatch = useDispatch();
 
   const addedCount = cartItem ? cartItem.count : 0;
 
   const addItem = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       price: price[sushiQuantityActive],
       imageUrl,
       quantity: quantity[sushiQuantityActive],
+      count: 0
     };
     console.log(item);
     dispatch(addProduct(item));

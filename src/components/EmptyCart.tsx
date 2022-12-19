@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const EmptyCart = () => {
+export const EmptyCart : React.FC  = ()  => {
   return (
     <div className="empty-cart">
       <h1>В корзине нет продуктов :(</h1>

@@ -1,23 +1,32 @@
 import React from "react";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSort } from "../redux/slices/filterSlice";
+import { setSort, SortPropertyEnum } from "../redux/slices/filterSlice";
 
-const Sort = () => {
+const Sort: React.FC = () => {
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filter.sort);
+  const sort = useSelector((state: any) => state.filter.sort);
   const [open, setOpen] = React.useState(false);
-  const sortRef = useRef();
-  const sortList = [
-    { name: "популярности", sort: "rating" },
-    { name: "цене (убыванию)", sort: "-price" },
-    { name: "цене (возрастанию)", sort: "price" },
-    { name: "алфавиту", sort: "title" },
+  const sortRef = useRef(null);
+
+type SortType = {
+  name: string;
+  sort: SortPropertyEnum
+}
+
+  const sortList: SortType[] = [
+    { name: "популярности", sort: SortPropertyEnum.RATING},
+    { name: "цене (убыванию)", sort: SortPropertyEnum.MINPRICE},
+    { name: "цене (возрастанию)", sort: SortPropertyEnum.PRICE },
+    { name: "алфавиту", sort: SortPropertyEnum.TITLE },
   ];
 
   React.useEffect(() => {
-    const handleSort = (event) => {
-      if (!event.path.includes(sortRef.current)) {
+    const handleSort = (event: MouseEvent) => {
+      const _event = event as MouseEvent & {
+        path: Node[]
+      }
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
       }
 
@@ -27,7 +36,7 @@ const Sort = () => {
     document.body.addEventListener("click", handleSort);
   }, []);
 
-  const onListSortItem = (obj) => {
+  const onListSortItem = (obj: SortType) => {
     dispatch(setSort(obj));
     setOpen(!open);
   };
