@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import logo from "../assets/img/logo.svg";
 import Search from "./Search";
 
-const Header = () => {
-  const { products, totalPrice } = useSelector((state) => state.cart);
+const Header: React.FC  = () => {
+  const { products, totalPrice } = useSelector((state: any) => state.cart);
 
-  const totalCount = products.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = products.reduce((sum: number, item: any) => sum + item.count, 0);
   return (
     <header className="header">
       <div className="container">

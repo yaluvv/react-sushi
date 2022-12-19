@@ -7,16 +7,16 @@ import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../components/CartItem";
 import { EmptyCart } from "../components/EmptyCart";
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
-  const { totalPrice, products } = useSelector((state) => state.cart);
-  const totalCount = products.reduce((sum, item) => sum + item.count, 0);
+  const { totalPrice, products } = useSelector((state: any) => state.cart);
+  const totalCount = products.reduce((sum: number, item: any) => sum + item.count, 0);
 
   const onClickClearCart = () => {
     dispatch(clearProducts());
   };
 
-  const items = useSelector((state) => state.cart.products);
+  const items = useSelector((state: any) => state.cart.products);
 
   if (!totalPrice) {
     return <EmptyCart />;
@@ -99,7 +99,7 @@ const Cart = () => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((item) => (
+          {items.map((item: any) => (
             <CartItem key={item.id} {...item} />
           ))}
         </div>

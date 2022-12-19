@@ -10,15 +10,15 @@ import Skeleton from "../components/Skeleton";
 import { fetchSushi } from "../redux/slices/sushiSlice";
 import { ErrorSushi } from "../components/ErrorSushi";
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const { categoryId, sort, searchValue } = useSelector(
-    (state) => state.filter
+    (state: any) => state.filter
   );
-  const { items, status } = useSelector((state) => state.sushi);
+  const { items, status } = useSelector((state: any) => state.sushi);
   const sortType = sort.sort;
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
   const getSushi = async () => {
@@ -28,6 +28,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : "";
 
     dispatch(
+      // @ts-ignore
       fetchSushi({
         order,
         sortBy,
@@ -55,7 +56,7 @@ const Home = () => {
           <div className="content__items">
             {status === "loading"
               ? [...new Array(3)].map((_, index) => <Skeleton key={index} />)
-              : items.map((obj) => <SushiBlock key={obj.id} {...obj} />)}
+              : items.map((obj: any) => <SushiBlock key={obj.id} {...obj} />)}
           </div>
         )}
       </div>
