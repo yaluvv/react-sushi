@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSort, SortPropertyEnum } from "../redux/slices/filterSlice";
 
-const Sort: React.FC = () => {
+const Sort: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const sort = useSelector((state: any) => state.filter.sort);
   const [open, setOpen] = React.useState(false);
@@ -76,6 +76,6 @@ type SortType = {
       )}
     </div>
   );
-};
+})
 
 export default Sort;

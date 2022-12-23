@@ -18,9 +18,10 @@ const Home: React.FC = () => {
   const { items, status } = useSelector((state: any) => state.sushi);
   const sortType = sort.sort;
 
-  const onClickCategory = (id: number) => {
+  const onClickCategory = React.useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, [])
+
   const getSushi = async () => {
     const order = sortType.includes("-") ? "desc" : "asc";
     const sortBy = sortType.replace("-", "");
