@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -6,8 +7,17 @@ import Search from "./Search";
 
 const Header: React.FC  = () => {
   const { products, totalPrice } = useSelector((state: any) => state.cart);
-
   const totalCount = products.reduce((sum: number, item: any) => sum + item.count, 0);
+  const isMounted = React.useRef(false)
+
+React.useEffect(() => {
+if (isMounted.current) {
+  const json = JSON.stringify(products)
+  localStorage.setItem('cart', json)
+}
+isMounted.current = true
+}, [products])
+
   return (
     <header className="header">
       <div className="container">
