@@ -1,0 +1,19 @@
+.empty-cart {
+    text-align: center;
+}
+.empty-cart p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.empty-cart__link {
+    display: inline-block;
+    padding: 10px;
+    background-color: $red;
+    color: white;
+    border-radius: 10px;
+    font-weight: 700;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
